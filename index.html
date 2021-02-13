@@ -4,9 +4,48 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<style type="text/css">
+			body {
+				font-family: serif;
+			}
+			button {
+				background-color: white;
+				border: solid 1px gray;
+				border-radius: 7px;
+			}
+
+			table {
+				text-align: left;
+				border-spacing: 0px 7px;
+			}
+
+			table th {
+				padding-right: 5px;
+			}
+
+			#stateChange {
+				margin-right: 7px;
+			}
+		</style>
+		<title>ToDoリスト</title>
 	</head>
 	<body>
+		<h1>ToDoリスト</h1>
+		<input type="radio" name="todo" value="all" />すべて
+		<input type="radio" name="todo" value="working" />作業中
+		<input type="radio" name="todo" value="complete" />完了
+		<table id="js-list" class="state">
+			<tr>
+				<th>ID</th>
+				<th>コメント</th>
+				<th>状態</th>
+			</tr>
+		</table>
+		<h2>新規タスクの追加</h2>
+		<form name="js-inputForm">
+			<input type="text" id="js-inputTodo" />
+			<button type="button" onclick="addTodo()">追加</button>
+		</form>
 		<script src="main.js"></script>
 	</body>
 </html>
