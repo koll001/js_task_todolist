@@ -1,5 +1,6 @@
 const input = document.querySelector('#js-inputTodo');
 const todoList = document.querySelector('#js-list');
+let id = 1;
 
 const todos = [];
 
@@ -22,7 +23,6 @@ function displayTodos(todos) {
 }
 
 function createTodo(inputValue) {
-	let id = 1;
 	const todo = {
 		id: id++,
 		task: inputValue,
