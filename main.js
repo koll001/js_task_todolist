@@ -1,24 +1,32 @@
-const input = document.querySelector('#js-inputTodo');
-const todoList = document.querySelector('#js-list');
+const input = document.getElementById('js-inputTodo');
+const todoList = document.getElementById('js-list');
 let id = 1;
 
 const todos = [];
 
+function deleteTableRow() {
+	let rowLen = todoList.rows.length;
+	if (rowLen > 1) {
+		for (let i = rowLen - 1; i > 0; i--) {
+			todoList.deleteRow(i);
+		}
+	}
+}
+
 function displayTodos(todos) {
-	const listTable = document.createElement('tr');
-	const listId = document.createElement('td');
-	const list = document.createElement('td');
-	const stateButton = document.createElement('td');
-	const deleteButton = document.createElement('td');
+	deleteTableRow();
 
-	for (i = 0; i < todos.length; i++) {
-		listId.innerText = todos[i].id;
-		stateButton.innerHTML = `<button type="button" id="stateChange">${todos[i].status}</button>`;
-		deleteButton.innerHTML = `<button type="button" id="delete">削除</button>`;
+	for (let i = 0, length = todos.length; i < length; i++) {
+		let newCell = [];
+		let newRow = todoList.insertRow(-1);
+		for (let i = 0; i < 4; i++) {
+			newCell[i] = newRow.insertCell(i);
+		}
 
-		list.innerText = todos[i].task;
-		listTable.append(listId, list, stateButton, deleteButton);
-		todoList.appendChild(listTable);
+		newCell[0].innerText = todos[i].id;
+		newCell[1].innerText = todos[i].task;
+		newCell[2].innerHTML = `<button type="button" id="stateChange">${todos[i].status}</button>`;
+		newCell[3].innerHTML = `<button type="button" id="delete">削除</button>`;
 	}
 }
 
