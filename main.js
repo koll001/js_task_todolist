@@ -1,46 +1,61 @@
 const input = document.getElementById('js-inputTodo');
 const todoList = document.getElementById('js-list');
-let id = 1;
 
 const todos = [];
 
-function deleteTableRow() {
+const createDeleteButton = (id) => {
+	const deleteButton = document.createElement('button');
+	deleteButton.innerText = '削除';
+	deleteButton.addEventListener('click', () => {
+		const targetIndex = todos.findIndex((index) => {
+			return index.id === id;
+		});
+		todos.splice(targetIndex, 1);
+		todos.map((todo, index) => {
+			todo.id = index;
+		});
+		displayTodos(todos);
+	});
+	return deleteButton;
+};
+
+const deleteTableRow = () => {
 	let rowLen = todoList.rows.length;
 	if (rowLen > 1) {
 		for (let i = rowLen - 1; i > 0; i--) {
 			todoList.deleteRow(i);
 		}
 	}
-}
+};
 
-function displayTodos(todos) {
+const displayTodos = (todos) => {
 	deleteTableRow();
 
-	for (let i = 0, length = todos.length; i < length; i++) {
+	todos.map((todo) => {
 		let newCell = [];
 		let newRow = todoList.insertRow(-1);
 		for (let i = 0; i < 4; i++) {
 			newCell[i] = newRow.insertCell(i);
 		}
 
-		newCell[0].innerText = todos[i].id;
-		newCell[1].innerText = todos[i].task;
-		newCell[2].innerHTML = `<button type="button" id="stateChange">${todos[i].status}</button>`;
-		newCell[3].innerHTML = `<button type="button" id="delete">削除</button>`;
-	}
-}
+		newCell[0].innerText = todo.id;
+		newCell[1].innerText = todo.task;
+		newCell[2].innerHTML = `<button type="button" id="stateChange">${todo.status}</button>`;
+		newCell[3].appendChild(createDeleteButton(todo.id));
+	});
+};
 
-function createTodo(inputValue) {
+const createTodo = (inputValue) => {
 	const todo = {
-		id: id++,
+		id: todos.length,
 		task: inputValue,
 		status: '作業中',
 	};
 	todos.push(todo);
 	displayTodos(todos);
-}
+};
 
-function addTodo() {
+const addTodo = () => {
 	const inputValue = input.value.trim();
 
 	if (!inputValue.length) {
@@ -48,4 +63,4 @@ function addTodo() {
 	}
 	createTodo(inputValue);
 	input.value = '';
-}
+};
