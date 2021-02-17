@@ -1,5 +1,6 @@
 const input = document.getElementById('js-inputTodo');
 const todoList = document.getElementById('js-list');
+const addTodo = document.getElementById('js-addTodo');
 
 const todos = [];
 
@@ -55,7 +56,7 @@ const createTodo = (inputValue) => {
 	displayTodos(todos);
 };
 
-const addTodo = () => {
+addTodo.addEventListener('click', () => {
 	const inputValue = input.value.trim();
 
 	if (!inputValue.length) {
@@ -63,4 +64,4 @@ const addTodo = () => {
 	}
 	createTodo(inputValue);
 	input.value = '';
-};
+});
