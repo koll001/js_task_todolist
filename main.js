@@ -4,6 +4,21 @@ const addTodo = document.getElementById('js-addTodo');
 
 const todos = [];
 
+const createStateButton = (todo) => {
+	const statusButton = document.createElement('button');
+	statusButton.innerText = todo.status;
+	statusButton.addEventListener('click', () => {
+		if (todo.status === '作業中') {
+			todo.status = '完了';
+			statusButton.innerText = todo.status;
+		} else if (todo.status === '完了') {
+			todo.status = '作業中';
+			statusButton.innerText = todo.status;
+		}
+	});
+	return statusButton;
+};
+
 const createDeleteButton = (id) => {
 	const deleteButton = document.createElement('button');
 	deleteButton.innerText = '削除';
@@ -41,7 +56,7 @@ const displayTodos = (todos) => {
 
 		newCell[0].innerText = todo.id;
 		newCell[1].innerText = todo.task;
-		newCell[2].innerHTML = `<button type="button" id="stateChange">${todo.status}</button>`;
+		newCell[2].appendChild(createStateButton(todo));
 		newCell[3].appendChild(createDeleteButton(todo.id));
 	});
 };
